@@ -1,0 +1,23 @@
+r = require 'react'
+fac = r.createFactory
+
+module.exports =
+  circle: fac 'circle'
+  clipPath: fac 'clipPath'
+  defs: fac 'defs'
+  ellipse: fac 'ellipse'
+  g: fac 'g'
+  image: fac 'image'
+  line: fac 'line'
+  linearGradient: fac 'linearGradient'
+  mask: fac 'mask'
+  path: fac 'path'
+  pattern: fac 'pattern'
+  polygon: fac 'polygon'
+  polyline: fac 'polyline'
+  radialGradient: fac 'radialGradient'
+  rect: fac 'rect'
+  stop: fac 'stop'
+  svg: fac 'svg'
+  text: fac 'text'
+  tspan: fac 'tspan'

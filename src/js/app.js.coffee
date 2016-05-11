@@ -1,9 +1,16 @@
 { render } = require 'react-dom'
+{ createElement } = require 'react'
 { div } = require './elements'
+gears = require './gears'
+
+# copy = require './copy'
+
+app = div {},
+  gears(0)
+  #div {}, copy
 
 refresh = (props) ->
-  ui = div({}, props.message)
   element = document.getElementById 'app'
-  render ui, element
+  render app, element
 
-refresh({ message: "Hello" })
+refresh()
