@@ -1,10 +1,13 @@
 body {
   margin: 0;
+  font-size: 16px;
+  line-height: 2;
+  width: 60%;
 }
 
 .gears {
   position: fixed;
-  top: -30%;
+  top: 0%;
   right: -30%;
   z-index: -1;
   width: 100%;

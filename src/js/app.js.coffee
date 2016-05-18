@@ -1,13 +1,13 @@
 { render } = require 'react-dom'
 { createElement } = require 'react'
 { div } = require './elements'
-gears = require './gears'
+gears = require './gears_canvas'
 copy = require './copy'
 
 app = () ->
   div {},
-    gears()
-    #div {}, copy
+    gears {}
+    div {}, copy
 
 render app(), document.getElementById 'app'
 
