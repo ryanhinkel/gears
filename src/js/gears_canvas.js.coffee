@@ -34,7 +34,7 @@ drawGear = (ctx, jpn) ->
   for segment in jpn
     ctx[canvasOps[segment.op]].apply(ctx, flatten(segment.coor))
   ctx.stroke()
-  ctx.fill()
+  # ctx.fill()
 
 drawGears = (rotation, ctx) ->
   ctx.clearRect(0, 0, 1000, 1000)
