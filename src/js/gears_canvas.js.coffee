@@ -21,29 +21,26 @@ gears = map paths, (gear) ->
     pathObj: pathObj
     ratio: gear.ratio
     center: pathTools.findCenter(pathObj)
+    color: gear.color
   }
 
 rotateGear = (gear, rotation) ->
   pathTools.rotatePathObject(gear.pathObj, gear.center, rotation/gear.ratio)
 
-drawGear = (ctx, pathObj) ->
+drawGear = (ctx, pathObj, color) ->
   ctx.beginPath()
-  ctx.strokeStyle = 'black'
-  # ctx.fillStyle = 'rgba(255,255,255,0.5)'
-  gradient = ctx.createRadialGradient(500,500,1000,500,500,0)
-  gradient.addColorStop(0,"rgba(255,0,0,0.5")
-  gradient.addColorStop(1,"rgba(100,0,0,0.5")
-  ctx.fillStyle = gradient
+  ctx.strokeStyle = "rgba(#{color.r}, #{color.g}, #{color.b}, 1)"
+  ctx.fillStyle = 'rgba(255,255,255,0.8)'
   ctx.lineWidth = 0.8
   for segment in pathObj
     ctx[canvasOps[segment.op]].apply(ctx, flatten(segment.coor))
   ctx.stroke()
-  # ctx.fill()
+  ctx.fill()
 
 drawGears = (rotation, ctx) ->
   ctx.clearRect(0, 0, 1000, 1000)
   for gear in gears
-    drawGear ctx, rotateGear(gear, rotation)
+    drawGear ctx, rotateGear(gear, rotation), gear.color
 
 gearCanvas = createClass
   setRef: (ref) ->
