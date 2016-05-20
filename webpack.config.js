@@ -7,7 +7,7 @@ module.exports = {
     resolve: {
         extensions: ["", ".webpack.js", ".web.js", ".js", ".js.coffee"]
     },
-    devtool: "#inline-source-map",
+    devtool: "cheap-module-source-map",
     module: {
         loaders: [
             { test: /\.coffee$/, loader: "coffee-loader" }
