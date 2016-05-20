@@ -27,20 +27,25 @@ gears = map paths, (gear) ->
 rotateGear = (gear, rotation) ->
   pathTools.rotatePathObject(gear.pathObj, gear.center, rotation/gear.ratio)
 
-drawGear = (ctx, pathObj, color) ->
-  ctx.beginPath()
-  ctx.strokeStyle = "rgba(#{color.r}, #{color.g}, #{color.b}, 1)"
-  ctx.fillStyle = 'rgba(255,255,255,0.8)'
-  ctx.lineWidth = 0.8
-  for segment in pathObj
-    ctx[canvasOps[segment.op]].apply(ctx, flatten(segment.coor))
-  ctx.stroke()
-  ctx.fill()
+drawGear = (ctx, g, parameters) ->
+  rotation = parameters[0]/3000
 
-drawGears = (rotation, ctx) ->
+  ctx.beginPath()
+  ctx.strokeStyle = "rgba(#{g.color.r}, #{g.color.g}, #{g.color.b}, 1)"
+  ctx.lineWidth = 0.8
+
+  drawSeg = (segment) ->
+    ctx[canvasOps[segment.op]].apply(ctx, flatten(segment.coor))
+
+  rg = rotateGear(g, rotation)
+  drawSeg seg for seg in rg
+
+  ctx.stroke()
+
+drawGears = (ctx, parameters) ->
   ctx.clearRect(0, 0, 1000, 1000)
   for gear in gears
-    drawGear ctx, rotateGear(gear, rotation), gear.color
+    drawGear ctx, gear, parameters
 
 gearCanvas = createClass
   setRef: (ref) ->
@@ -48,9 +53,9 @@ gearCanvas = createClass
     ctx.scale(@pixelRatio, @pixelRatio)
 
     draw = () ->
-      r = document.body.scrollTop/3000
+      parameters = [document.body.scrollTop]
       requestAnimationFrame () ->
-      drawGears(r, ctx)
+        drawGears(ctx, parameters)
 
     window.onscroll = draw
     draw()
