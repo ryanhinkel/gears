@@ -2,6 +2,7 @@
 { div, canvas } = require './elements'
 map = require 'lodash/map'
 flatten = require 'lodash/flatten'
+partial = require 'lodash/partial'
 coorTools = require './coordinate_tools'
 pathTools = require './path_tools'
 paths = require './gear_paths'
@@ -22,29 +23,29 @@ gears = map paths, (gear) ->
     ratio: gear.ratio
     center: pathTools.findCenter(pathObj)
     color: gear.color
+    id: gear.id
   }
-
-rotateGear = (gear, rotation) ->
-  pathTools.rotatePathObject(gear.pathObj, gear.center, rotation/gear.ratio)
 
 drawGear = (ctx, g, parameters) ->
   rotation = parameters[0]/3000
+  opacity = Math.max((1-parameters[0]/1000), 0)
+  rotate = partial coorTools.rotate, rotation/g.ratio, g.center
+  drawSeg = (segment) ->
+    # tranform coordinates
+    coor = map seg.coor, rotate
+    ctx[canvasOps[segment.op]].apply(ctx, flatten(coor))
 
   ctx.beginPath()
   ctx.strokeStyle = "rgba(#{g.color.r}, #{g.color.g}, #{g.color.b}, 1)"
   ctx.lineWidth = 0.8
-
-  drawSeg = (segment) ->
-    ctx[canvasOps[segment.op]].apply(ctx, flatten(segment.coor))
-
-  rg = rotateGear(g, rotation)
-  drawSeg seg for seg in rg
-
+  drawSeg seg for seg in g.pathObj
   ctx.stroke()
+  # ctx.fillText(g.id, g.center[0], g.center[1]);
 
 drawGears = (ctx, parameters) ->
   ctx.clearRect(0, 0, 1000, 1000)
-  for gear in gears
+  for gear, index in gears
+
     drawGear ctx, gear, parameters
 
 gearCanvas = createClass
