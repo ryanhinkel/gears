@@ -2,7 +2,8 @@
 { div, canvas } = require './elements'
 map = require 'lodash/map'
 flatten = require 'lodash/flatten'
-t = require './coordinate_tools'
+coorTools = require './coordinate_tools'
+pathTools = require './path_tools'
 paths = require './gear_paths'
 
 canvasOps =
@@ -15,14 +16,17 @@ canvasWidth = 1000
 canvasHeight = 1000
 
 gears = map paths, (gear) ->
-  jpn: t.toAbsolute(t.toJPN(gear.d))
-  ratio: gear.ratio
+  pathObj = pathTools.convertFromPath(gear.d)
+  {
+    pathObj: pathObj
+    ratio: gear.ratio
+    center: pathTools.findCenter(pathObj)
+  }
 
 rotateGear = (gear, rotation) ->
-  center = t.findCenter(gear.jpn)
-  t.rotateJPN(gear.jpn, center, rotation/gear.ratio)
+  pathTools.rotatePathObject(gear.pathObj, gear.center, rotation/gear.ratio)
 
-drawGear = (ctx, jpn) ->
+drawGear = (ctx, pathObj) ->
   ctx.beginPath()
   ctx.strokeStyle = 'black'
   # ctx.fillStyle = 'rgba(255,255,255,0.5)'
@@ -31,7 +35,7 @@ drawGear = (ctx, jpn) ->
   gradient.addColorStop(1,"rgba(100,0,0,0.5")
   ctx.fillStyle = gradient
   ctx.lineWidth = 0.8
-  for segment in jpn
+  for segment in pathObj
     ctx[canvasOps[segment.op]].apply(ctx, flatten(segment.coor))
   ctx.stroke()
   # ctx.fill()
@@ -46,11 +50,13 @@ gearCanvas = createClass
     ctx = ref.getContext("2d")
     ctx.scale(@pixelRatio, @pixelRatio)
 
-    window.onscroll = (event) ->
-      r = document.body.scrollTop/1000
+    draw = () ->
+      r = document.body.scrollTop/3000
       requestAnimationFrame () ->
-        drawGears(r, ctx)
+      drawGears(r, ctx)
 
+    window.onscroll = draw
+    draw()
 
   render: () ->
     @pixelRatio = window.devicePixelRatio
