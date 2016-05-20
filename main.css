@@ -1,6 +1,7 @@
 body {
-  margin: 0;
-  font-size: 16px;
+  margin: 1em;
+  font-size: 20px;
+  font-family: sans-serif;
   line-height: 2;
   width: 60%;
 }
