@@ -7,7 +7,7 @@ copy = require './copy'
 app = () ->
   div {},
     gears {}
-    div {dangerouslySetInnerHTML: {__html: copy}},
+    div {className: "copy", dangerouslySetInnerHTML: {__html: copy}},
 
 render app(), document.getElementById 'app'
 

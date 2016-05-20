@@ -1,9 +1,13 @@
 body {
-  margin: 1em;
+  margin: 0;
+}
+
+.copy {
+  margin: 3em;
   font-size: 20px;
   font-family: sans-serif;
   line-height: 2;
-  width: 60%;
+  width: 40%;
 }
 
 .gears {
