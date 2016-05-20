@@ -1,6 +1,7 @@
 { min, max } = Math
 reduce = require 'lodash/reduce'
 map = require 'lodash/map'
+partial = require 'lodash/partial'
 coorTools = require './coordinate_tools'
 
 lastItem = (array) ->
@@ -73,13 +74,13 @@ pathTools.toAbsolute = (pathObj) ->
     []
   )
 
-# JPN transform
-pathTools.rotatePathObject = (pathObj, point, angle) ->
+pathTools.rotatePathObject = (pathObj, origin, theta) ->
+  rotate = partial(coorTools.rotate, theta, origin)
   reduce(
     pathObj
     (result, seg) ->
       transformed =
-        coor: map(seg.coor, (coor) -> coorTools.rotateAround(point, coor, angle))
+        coor: map seg.coor, rotate
         op: seg.op
       result.push(transformed)
       result

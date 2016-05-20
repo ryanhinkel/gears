@@ -39,11 +39,12 @@ ct.vMinusV = (v1, v2) ->
     v1[1] - v2[1]
   ]
 
-ct.rotateVector = (v, theta) ->
+ct.rotateVector = (theta, v) ->
   ct.vTimesM(v, ct.rotateMatrix(theta))
 
-ct.rotateAround = (v1, v2, theta) ->
+ct.rotate = (theta, origin, v) ->
   # v2 rotates around v1
-  ct.vPlusV(ct.rotateVector(ct.vMinusV(v2, v1), theta), v1)
+  ct.vPlusV(ct.rotateVector(theta, ct.vMinusV(v, origin)), origin)
+
 
 module.exports = ct
