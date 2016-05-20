@@ -1,11 +1,12 @@
 { cos, sin, PI } = Math
+memoize = require 'lodash/memoize'
 
 radians = (d) ->
   d * (PI / 180)
 
 ct = {}
 
-ct.rotateMatrix = (theta) ->
+ct.rotateMatrix = memoize (theta) ->
   c = cos(theta)
   s = sin(theta)
   [
