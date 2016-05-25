@@ -1,7 +1,7 @@
 map = require 'lodash/map'
 
-pathTools = require '../lib/path_tools'
-{ hexToRgb } = require '../lib/color_transform'
+pathTools = require '../../lib/path_tools'
+{ hexToRgb } = require '../../lib/color_transform'
 
 colors = [
   hexToRgb("#00B58C")

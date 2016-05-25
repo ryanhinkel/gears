@@ -1,9 +1,8 @@
 { createClass, createFactory } = require 'react'
-
 { div, canvas } = require '../lib/elements'
 
-gearsPaths = require '../assets/gear_paths'
-gearRotate = require './gear_rotate'
+gearsPaths = require './assets/gear_paths'
+gearRotate = require '../src/main'
 
 gearCanvas = createClass
   setRef: (ref) ->
@@ -22,6 +21,7 @@ gearCanvas = createClass
       requestAnimationFrame () ->
         drawGear([document.body.scrollTop])
 
+    # set up handler and draw immediately
     window.onscroll = draw
     draw()
 

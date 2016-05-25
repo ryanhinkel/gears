@@ -4,8 +4,9 @@
   "description": "",
   "main": "bundle.js",
   "scripts": {
-    "start": "webpack-dev-server --progress --colors",
-    "lint": "coffeelint src/js",
+    "dev": "WEBPACK_ENV=dev webpack-dev-server --progress --colors",
+    "build": "WEBPACK_ENV=build webpack",
+    "lint": "coffeelint src/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

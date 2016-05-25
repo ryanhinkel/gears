@@ -1,8 +1,9 @@
 { render } = require 'react-dom'
 { createElement } = require 'react'
 { div } = require '../lib/elements'
-gears = require './gears_canvas'
-copy = require '../assets/copy'
+
+copy = require './assets/copy'
+gears = require './gears_component'
 
 app = () ->
   div {},
