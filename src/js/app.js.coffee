@@ -1,8 +1,8 @@
 { render } = require 'react-dom'
 { createElement } = require 'react'
-{ div } = require './elements'
+{ div } = require '../lib/elements'
 gears = require './gears_canvas'
-copy = require './copy'
+copy = require '../assets/copy'
 
 app = () ->
   div {},
@@ -10,8 +10,3 @@ app = () ->
     div {className: "copy", dangerouslySetInnerHTML: {__html: copy}},
 
 render app(), document.getElementById 'app'
-
-
-# document.onmousemove = (event) ->
-#   r = event.pageY/1000;
-#   requestAnimationFrame(refresh)
