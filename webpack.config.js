@@ -14,6 +14,7 @@ config.resolve = {
     extensions: ["", ".webpack.js", ".web.js", ".js", ".js.coffee"]
 }
 
+// Build target
 if (env === 'build') {
     config.entry = "./src/main.js.coffee";
     config.output = {
@@ -22,10 +23,11 @@ if (env === 'build') {
 
     config.plugins = [new UglifyJsPlugin({ minimize: true })];
 
+// Dev target - example
 } else {
     config.entry = "./example/app.js.coffee";
     config.output = {
-        path: __dirname,
+        path: __dirname + '/example/',
         filename: 'bundle.js' }
 
     config.devtool = "cheap-module-source-map";
