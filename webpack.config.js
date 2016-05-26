@@ -17,6 +17,7 @@ config.resolve = {
 if (env === 'build') {
     config.entry = "./src/main.js.coffee";
     config.output = {
+        libraryTarget: 'commonjs2',
         path: __dirname + '/dist/',
         filename: name + '.js' }
 
