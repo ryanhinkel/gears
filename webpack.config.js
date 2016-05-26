@@ -1,5 +1,4 @@
 var webpack = require('webpack');
-var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 
 var env = process.env.WEBPACK_ENV
 var name = 'gear_rotate'
@@ -20,8 +19,6 @@ if (env === 'build') {
     config.output = {
         path: __dirname + '/dist/',
         filename: name + '.js' }
-
-    config.plugins = [new UglifyJsPlugin({ minimize: true })];
 
 // Dev target - example
 } else {
