@@ -28,7 +28,7 @@ if (env === 'build') {
         path: __dirname + '/example/',
         filename: 'bundle.js' }
 
-    config.devtool = "cheap-module-source-map";
+    config.devtool = "cheap-module-source-map"
 }
 
 module.exports = config

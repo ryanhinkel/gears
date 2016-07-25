@@ -12,16 +12,16 @@ canvasOps =
 
 drawGear = (ctx, g, parameters) ->
   rotation = parameters[0]/3000
-  rotate = partial coorTools.rotate, rotation/g.ratio, g.center
-  drawSeg = (segment) ->
-    # tranform coordinates
-    coor = map seg.coor, rotate
-    ctx[canvasOps[segment.op]].apply(ctx, flatten(coor))
 
   ctx.beginPath()
   ctx.strokeStyle = "rgba(#{g.color.r}, #{g.color.g}, #{g.color.b}, 1)"
   ctx.lineWidth = 0.8
-  drawSeg seg for seg in g.pathObj
+  for seg in g.pathObj
+    result = []
+    for coor in seg.coor
+      Array.prototype.push.apply(result, coorTools.rotate(rotation/g.ratio, g.center, coor))
+
+    ctx[canvasOps[seg.op]].apply(ctx, result)
   ctx.stroke()
 
 drawGears = (ctx, gears, parameters) ->

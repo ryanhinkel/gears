@@ -6,7 +6,7 @@ radians = (d) ->
 
 ct = {}
 
-ct.rotateMatrix = memoize (theta) ->
+ct.rotateMatrix = (theta) ->
   c = cos(theta)
   s = sin(theta)
   [
